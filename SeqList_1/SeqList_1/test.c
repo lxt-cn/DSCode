@@ -223,9 +223,9 @@ int main()
 	//TestErase();
 	//TestRemove();
 	//TestRemoveAll();
-	//TestBubbleSort();
+	TestBubbleSort();
 	//TestSelectSort();
-	TestBinarySearch();
+	//TestBinarySearch();
 
 	system("pause");
 	return 0;
