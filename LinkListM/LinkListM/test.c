@@ -175,6 +175,7 @@ void TestPrintTailToHead()
 	PrintTailToHead_R(plist); //1  2  3  4
 	printf("\n");
 	PrintTailToHead(plist);   //1  2  3  4
+	DestroyList(&plist);
 }
 
 void TestDelNodeNotTail()
@@ -193,6 +194,7 @@ void TestDelNodeNotTail()
 		DelNodeNotTail(pos);
 	}
 	PrintList(plist);         //4  2  1
+	DestroyList(&plist);
 }
 
 void TestInsertNode()
@@ -211,6 +213,7 @@ void TestInsertNode()
 		InsertNode(pos, 5);
 	}
 	PrintList(plist);         //4  5  3  2  1
+	DestroyList(&plist);
 }
 
 void TestJosephusCycle()
@@ -225,6 +228,7 @@ void TestJosephusCycle()
 	Find(plist, 41)->next = plist;
 	//
 	JosephusCycle(&plist, 3);
+	DestroyList(&plist);
 }
 
 void TestReverseList()
@@ -239,6 +243,7 @@ void TestReverseList()
 	PrintList(plist);  //10  9  8  7  6  5  4  3  2  1
 	ReverseList_2(&plist);
 	PrintList(plist);  // 1  2  3  4  5  6  7  8  9  10
+	DestroyList(&plist);
 }
 
 void TestBubbleSortList()
@@ -270,8 +275,98 @@ void TestMerge()
 	}
 	PrintList(plist1);    //0  2  4  6  8 
 	PrintList(plist2);    //1  3  5  7  9
-	plist = Merge(plist1, plist2);
+	//plist = Merge(plist1, plist2);
+	plist = Merge_R(plist1, plist2);
 	PrintList(plist);     //0  1  2  3  4  5  6  7  8  9 
+	DestroyList(&plist);
+}
+
+void TestFindMidNode()
+{
+	pList plist = NULL;
+	pNode Mid = NULL;
+	for (int i = 1; i <= 10; i++)
+	{
+		PushBack(&plist, i);
+	}
+	PrintList(plist);  // 1  2  3  4  5  6  7  8  9  10
+	Mid = FindMidNode(plist);
+	if (Mid != NULL)
+	{
+		printf("%d\n", Mid->data);    // 6
+	}
+	DestroyList(&plist);
+}
+
+void TestFindLastKNode()
+{
+	pList plist = NULL;
+	pNode pos = NULL;
+	for (int i = 1; i <= 10; i++)
+	{
+		PushBack(&plist, i);
+	}
+	PrintList(plist);  // 1  2  3  4  5  6  7  8  9  10
+	pos = FindLastKNode(plist, 3);
+	if (pos != NULL)
+	{
+		printf("%d\n", pos->data);  // 8
+	}
+	DestroyList(&plist);
+}
+
+void TestCiecle()
+{
+	pList plist = NULL;
+	pNode pos = NULL;
+	for (int i = 1; i <= 5; i++)
+	{
+		PushBack(&plist, i);
+	}
+	Find(plist, 5)->next = Find(plist, 3);
+	pos = IsCircle(plist);
+	if (pos != NULL)
+	{
+		printf("带环，相遇点是：%d\n", pos->data);
+		printf("环的长度：%d\n", GetCircleLength(pos));
+		printf("入口点是：%d\n", GetCirCleEntryNode(plist, pos)->data);
+	}
+	else
+	{
+		printf("不带环\n");
+	}
+}
+
+void TestCheckCross()
+{
+	pList plist1 = NULL;
+	pList plist2 = NULL;
+	pNode pos = NULL;
+	int i = 0;
+	for (i = 0; i < 10; i += 2)
+	{
+		PushBack(&plist1, i);
+	}
+	PrintList(plist1);    //0  2  4  6  8 
+	for (i = 1; i < 10; i += 2)
+	{
+		PushBack(&plist2, i);
+	}
+	PrintList(plist2);    //1  3  5  7  9
+	Find(plist2, 9)->next = Find(plist1, 4);
+	PrintList(plist1);    //0  2  4  6  8
+	PrintList(plist2);    //1  3  5  7  9  4  6  8
+	if (CheckCross(plist1, plist2) == 1)
+	{
+		printf("相交\n");
+		//求交点
+		pos = GetCrossMeetNode(plist1, plist2);
+		printf("交点是：%d\n", pos->data);
+	}
+	else
+	{
+		printf("不相交\n");
+	}
 }
 
 int main()
@@ -291,6 +386,11 @@ int main()
 	//TestReverseList();
 	//TestBubbleSortList();
 	//TestMerge();
+	//TestFindMidNode();
+	//TestFindLastKNode();
+	//TestCiecle();
+	TestCheckCross();
+
 
 	system("pause");
 	return 0;

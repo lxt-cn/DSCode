@@ -559,3 +559,198 @@ pList Merge(pList pplist1, pList pplist2)
 	}
 	return pplist;
 }
+
+pList Merge_R(pList pplist1, pList pplist2)
+{
+	pList pplist = NULL;
+	pNode tail = NULL;
+	//同时为空
+	if (pplist1 == pplist2)
+	{
+		return NULL;
+	}
+	//pplist1为空，pplist2非空
+	if (pplist1 == NULL)
+	{
+		return pplist2;
+	}
+	//pplist2为空,pplist1非空
+	if (pplist2 == NULL)
+	{
+		return pplist1;
+	}
+
+	if (pplist1->data < pplist2->data)
+	{
+		pplist = pplist1;
+		pplist->next = Merge_R(pplist1->next, pplist2);
+	}
+	else
+	{
+		pplist = pplist2;
+		pplist->next = Merge_R(pplist2->next, pplist1);
+	}
+	return pplist;
+}
+
+pNode FindMidNode(pList plist)
+{
+	pNode fast = plist;
+	pNode slow = plist;
+
+	if ((plist == NULL) || (plist->next == NULL))
+	{
+		return plist;
+	}
+
+	while (fast && (fast->next != NULL))
+	{
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+	return slow;
+}
+
+pNode FindLastKNode(pList plist, int k)
+{
+	pNode fast = plist;
+	pNode slow = plist;
+
+	if (plist == NULL)
+	{
+		return NULL;
+	}
+
+	//第一个元素先走 k 步
+	while (k--)
+	{
+		if (fast == NULL)
+		{
+			return NULL;
+		}
+		fast = fast->next;
+	}
+
+	while (fast != NULL)
+	{
+		slow = slow->next;
+		fast = fast->next;
+	}
+	return slow;
+}
+
+pNode IsCircle(pList plist)
+{
+	pNode fast = plist;
+	pNode slow = plist;
+	if (plist == NULL)
+	{
+		return plist;
+	}
+
+	while ((fast != NULL) && (fast->next != NULL))
+	{
+		fast = fast->next->next;
+		slow = slow->next;
+		if (fast == slow)
+		{
+			return fast;
+		}
+	}
+	return NULL;
+}
+
+int GetCircleLength(pNode meet)
+{
+	pNode cur = NULL;
+	int len = 1;
+	
+	assert(meet != NULL);
+
+	cur = meet->next;
+	while (cur != meet)
+	{
+		len++;
+		cur = cur->next;
+	}
+	return len;
+}
+
+pNode GetCirCleEntryNode(pList plist, pNode meet)
+{
+	pNode cur = plist;
+
+	if (plist == NULL)
+	{
+		return NULL;
+	}
+	assert(meet != NULL);
+
+	while (cur != meet)
+	{
+		cur = cur->next;
+		meet = meet->next;
+	}
+	return cur;
+}
+
+int CheckCross(pList plist1, pList plist2)
+{
+	pNode end1 = plist1;
+	pNode end2 = plist2;
+	if ((plist1 == NULL) || (plist2 == NULL))
+	{
+		return 0;
+	}
+
+	while (end1->next != NULL)
+	{
+		end1 = end1->next;
+	}
+	while (end2->next != NULL)
+	{
+		end2 = end2->next;
+	}
+	return end1 == end2;
+}
+
+pNode GetCrossMeetNode(pList plist1, pList plist2)
+{
+	pNode cur1 = plist1;
+	pNode cur2 = plist2;
+	int len1 = 0;
+	int len2 = 0;
+	int gap = 0;
+
+	while (cur1)
+	{
+		len1++;
+		cur1 = cur1->next;
+	}
+	while (cur2)
+	{
+		len2++;
+		cur2 = cur2->next;
+	}
+
+	gap = abs(len1 - len2);
+	cur1 = plist1;  //长
+	cur2 = plist2;  //短
+
+	if (len1 < len2)
+	{
+		cur1 = plist2;
+		cur2 = plist1;
+	}
+
+	while (gap--)
+	{
+		cur1 = cur1->next;
+	}
+	while (cur1 != cur2)
+	{
+		cur1 = cur1->next;
+		cur2 = cur2->next;
+	}
+	return cur1;
+}

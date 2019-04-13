@@ -305,3 +305,56 @@ int GetListLength(pList plist)
 	}
 	return count;
 }
+
+//--------------------------链表面试题-----------------------------------------------
+
+void PrintTailToHead_R(pList plist)
+{
+	if (plist == NULL)
+	{
+		return;
+	}
+	PrintTailToHead(plist->next);
+	printf("%d-->", plist->data);
+}
+
+void PrintTailToHead(pList plist)
+{
+	pNode cur = plist;
+	pNode tail = NULL;
+	if (plist == NULL)
+	{
+		return;
+	}
+	if (plist->next == NULL)
+	{
+		printf("%d\n", plist->data);
+		return;
+	}
+	while (plist != tail)
+	{
+		cur = plist;
+		while (cur->next != tail)
+		{
+			cur = cur->next;
+		}
+		printf("%d-->", cur->data);
+		tail = cur;
+	}
+}
+
+void DelNodeNotTail(pNode pos)
+{
+	pNode del = NULL;
+	assert(pos != NULL);
+	assert(pos->next != NULL);
+
+	del = pos->next;
+	//移动数据
+	pos->data = pos->next->data;
+	//删除下一个结点
+	pos->next = del->next;
+	free(del);
+	del = NULL;
+}
+

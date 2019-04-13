@@ -163,16 +163,49 @@ void TestRemove()
 	PrintList(plist);  //
 }
 
+void TestPrintTailToHead()
+{
+	pList plist = NULL;
+	InitList(&plist);
+	PushFront(&plist, 1);
+	PushFront(&plist, 2);
+	PushFront(&plist, 3);
+	PushFront(&plist, 4);
+	PrintList(plist);         //4  3  2  1
+	PrintTailToHead_R(plist); //1  2  3  4
+	printf("\n");
+	PrintTailToHead(plist);   //1  2  3  4
+}
+
+void TestDelNodeNotTail()
+{
+	pList plist = NULL;
+	pNode pos = NULL;
+	InitList(&plist);
+	PushFront(&plist, 1);
+	PushFront(&plist, 2);
+	PushFront(&plist, 3);
+	PushFront(&plist, 4);
+	PrintList(plist);         //4  3  2  1
+	pos = Find(plist, 3);
+	if (pos != NULL)
+	{
+		DelNodeNotTail(pos);
+	}
+	PrintList(plist);         //4  2  1
+}
 int main()
 {
-	TestPushBack();
-	TestPopBack();
-	TestPushFront();
-	TestPopFront();
-	TestFind();
-	TestInsert();
-	TestErase();
-	TestRemove();
+	//TestPushBack();
+	//TestPopBack();
+	//TestPushFront();
+	//TestPopFront();
+	//TestFind();
+	//TestInsert();
+	//TestErase();
+	//TestRemove();
+	//TestPrintTailToHead();
+	TestDelNodeNotTail();
 
 	system("pause");
 	return 0;

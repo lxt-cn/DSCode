@@ -55,6 +55,24 @@ void ReverseList_2(pList* pplist);
 void BubbleSortList(pList plist);
 //8、合并两个有序链表, 合并后依然有序
 pList Merge(pList pplist1, pList pplist2);
+pList Merge_R(pList pplist1, pList pplist2);
+//9、查找单链表的中间节点，要求只能遍历一次链表
+pNode FindMidNode(pList plist);
+//10、查找单链表的倒数第k个节点，要求只能遍历一次链表
+pNode FindLastKNode(pList plist, int k);
+//11、判断单链表是否带环？若带环，求环的长度？求环的入口点？并计算每个算法的时间复杂度&空间复杂度。
+pNode IsCircle(pList plist);
+int GetCircleLength(pNode meet);
+pNode GetCirCleEntryNode(pList plist, pNode meet);
+//12、判断两个链表是否相交，若相交，求交点。（假设链表不带环）
+int CheckCross(pList plist1, pList plist2);
+pNode GetCrossMeetNode(pList plist1, pList plist2);
+//13、判断两个链表是否相交，若相交，求交点。（假设链表可能带环）【升级版】
+
+//14、复杂链表的复制。一个链表的每个节点，有一个指向next指针指向
+//    下一个节点，还有一个random指针指向这个链表中的一个随机节点
+//    或者NULL，现在要求实现复制这个链表，返回复制后的新链表。
+//15、求两个已排序单链表中相同的数据。void UnionSet(Node* l1,Node* l2);
 
 
 #endif //__LINKLISTM_H__
