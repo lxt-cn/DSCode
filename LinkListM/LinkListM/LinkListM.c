@@ -754,3 +754,187 @@ pNode GetCrossMeetNode(pList plist1, pList plist2)
 	}
 	return cur1;
 }
+
+int CheckCrossWithCircle(pList plist1, pList plist2)
+{
+	pNode pos1 = IsCircle(plist1);
+	pNode pos2 = IsCircle(plist2);
+	pNode cur = plist1;
+
+	if ((pos1 == NULL) || (pos2 == NULL))
+	{
+		return 0;
+	}
+	while (cur)
+	{
+		if (cur == pos2)
+		{
+			return 1;
+		}
+		cur = cur->next;
+	}
+	return 0;
+}
+
+void GetCrossMeetNodeWithCircle(pList plist1, pList plist2)
+{
+	pNode pos1 = IsCircle(plist1);
+	pNode pos2 = IsCircle(plist2);
+	pNode entry1 = NULL;
+	pNode entry2 = NULL;
+	int len1 = 0;
+	int len2 = 0;
+	int gap = 0;
+	pNode cur1 = plist1;
+	pNode cur2 = plist2;
+	if ((pos1 == NULL) || (pos2 == NULL))
+	{
+		return;
+	}
+	entry1 = GetCirCleEntryNode(plist1, pos1);
+	entry2 = GetCirCleEntryNode(plist2, pos2);
+	if (entry1 == entry2)
+	{
+		while (cur1 != entry1)
+		{
+			len1++;
+			cur1 = cur1->next;
+		}
+		while (cur2 != entry2)
+		{
+			len2++;
+			cur2 = cur2->next;
+		}
+		gap = abs(len1 - len2);
+		cur1 = plist1;  //长
+		cur2 = plist2;  //短
+
+		if (len1 < len2)
+		{
+			cur1 = plist2;
+			cur2 = plist1;
+		}
+
+		while (gap--)
+		{
+			cur1 = cur1->next;
+		}
+		while (cur1 != cur2)
+		{
+			cur1 = cur1->next;
+			cur2 = cur2->next;
+		}
+		printf("相遇点为：%d\n", cur1->data);
+		return;
+	}
+	printf("相遇点有两个，分别为：%d , %d\n", entry1->data, entry2->data);
+}
+
+void UnionSet(pList plist1, pList plist2)
+{
+	if ((plist1 == NULL) || (plist2 == NULL))
+		return;
+	while (plist1&&plist2)
+	{
+		if (plist1->data < plist2->data)
+		{
+			plist1 = plist1->next;
+		}
+		else if (plist1->data > plist2->data)
+		{
+			plist2 = plist2->next;
+		}
+		else
+		{
+			printf("%d  ", plist1->data);
+			plist1 = plist1->next;
+			plist2 = plist2->next;
+		}
+	}
+	printf("\n");
+}
+
+ComplexNode* BuyComplexNode(DataType d)
+{
+	ComplexNode* p = (ComplexNode*)malloc(sizeof(ComplexNode));
+	if (p == NULL)
+	{
+		perror("BuyComplexNode::malooc");
+		return NULL;
+	}
+	p->data = d;
+	p->next = NULL;
+	p->random = NULL;
+	return p;
+}
+
+void PrintComplexList(ComplexNode* plist)
+{
+	ComplexNode* cur = plist;
+	while (cur)
+	{
+		printf("%d:", cur->data);
+		if (cur->random != NULL)
+		{
+			printf("(%d)-->", cur->random->data);
+		}
+		else
+		{
+			printf("(NULL)-->");
+		}
+		cur = cur->next;
+	}
+	printf("over\n");
+}
+
+ComplexNode* CopyComplexList(ComplexNode* plist)
+{
+	ComplexNode* cur = plist;
+	ComplexNode* next = cur->next;
+	ComplexNode* cp = NULL;
+	ComplexNode* newlist = NULL;
+	//1、在当前结点的后边插入一个当前结点的数据
+	while (cur != NULL)
+	{
+		ComplexNode* newNode = BuyComplexNode(cur->data);
+		newNode->next = next;
+		cur->next = newNode;
+		cur = next;
+		if (cur != NULL)
+		{
+			next = cur->next;
+		}
+	}
+	//2、调整插入结点的random指针
+	cur = plist;
+	cp = cur->next;
+	while (cur != NULL)
+	{
+		if (cur->random != NULL)
+		{
+			cp->random = cur->random->next;
+		}
+		cur = cp->next;
+		if (cur != NULL)
+		{
+			cp = cur->next;
+		}
+	}
+	//3、拆除链表
+	cur = plist;
+	cp = cur->next;
+	newlist = cp;
+	
+	while (cur != NULL)
+	{
+		cur->next = cp->next;
+		if (cur->next != NULL)
+		{
+			cp->next = cur->next->next;
+		}
+		cur = cur->next;
+		cp = cp->next;
+	}
+
+	return newlist;
+}

@@ -68,11 +68,21 @@ pNode GetCirCleEntryNode(pList plist, pNode meet);
 int CheckCross(pList plist1, pList plist2);
 pNode GetCrossMeetNode(pList plist1, pList plist2);
 //13、判断两个链表是否相交，若相交，求交点。（假设链表可能带环）【升级版】
-
-//14、复杂链表的复制。一个链表的每个节点，有一个指向next指针指向
+int CheckCrossWithCircle(pList plist, pList plist2);
+void GetCrossMeetNodeWithCircle(pList plist1, pList plist2);
+//14、求两个有序单链表中的交集。
+void UnionSet(pList plist1, pList plist2);
+//15、复杂链表的复制。一个链表的每个节点，有一个指向next指针指向
 //    下一个节点，还有一个random指针指向这个链表中的一个随机节点
 //    或者NULL，现在要求实现复制这个链表，返回复制后的新链表。
-//15、求两个已排序单链表中相同的数据。void UnionSet(Node* l1,Node* l2);
+typedef struct ComplexNode
+{  
+	DataType data;
+	struct ComplexNode* next;
+	struct ComplexNode* random;
+}ComplexNode;
+ComplexNode* BuyComplexNode(DataType d);
+void PrintComplexList(ComplexNode* plist);
+ComplexNode* CopyComplexList(ComplexNode* plist);
 
-
-#endif //__LINKLISTM_H__
+#endif //__LINKLIx bSTM_H__

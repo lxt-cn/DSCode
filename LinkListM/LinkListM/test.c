@@ -315,7 +315,7 @@ void TestFindLastKNode()
 	DestroyList(&plist);
 }
 
-void TestCiecle()
+void TestCircle()
 {
 	pList plist = NULL;
 	pNode pos = NULL;
@@ -369,6 +369,98 @@ void TestCheckCross()
 	}
 }
 
+void TestCheckCrossWithCircle()
+{
+	pList plist1 = NULL;
+	pList plist2 = NULL;
+	pNode pos = NULL;
+	int i = 0;
+	for (i = 1; i < 10; i++)
+	{
+		PushBack(&plist1, i);
+	}
+	PrintList(plist1);    // 1  2  3  4  5  6  7  8  9(5) 
+	Find(plist1, 9)->next = Find(plist1, 5);
+
+	for (i = 1; i < 6; i += 2)
+	{
+		PushBack(&plist2, i);
+	}
+	PrintList(plist2);    //1  3  5
+	//Find(plist2, 5)->next = Find(plist1, 3); //1  3  5(p1:3)(3  4  5  6  7  8  9)
+	Find(plist2, 5)->next = Find(plist1, 8);  //1  3  5(p1:8)(8  9  5  6  7)
+	if ((IsCircle(plist1) == NULL) || (IsCircle(plist2) == NULL))
+	{
+		if (CheckCross(plist1, plist2) == 1)
+		{
+			printf("不带环相交\n");
+			//求交点
+			pos = GetCrossMeetNode(plist1, plist2);
+			printf("交点是：%d\n", pos->data);
+		}
+		else
+		{
+			printf("不相交\n");
+		}
+	}
+	if (CheckCrossWithCircle(plist1, plist2) == 1)
+	{
+		printf("带环相交\n");
+		GetCrossMeetNodeWithCircle(plist1, plist2);
+	}
+	else
+	{
+		printf("都带环不相交\n");
+	}
+
+}
+
+void TestUnionSet()
+{
+	pList plist1 = NULL;
+	pList plist2 = NULL;
+	int i = 0;
+	for (i = 1; i <= 9; i += 2)
+	{
+		PushBack(&plist1, i);
+	}
+	PrintList(plist1);    // 1  3  5  7  9
+	for (i = 2; i <= 6; i++)
+	{
+		PushBack(&plist2, i); 
+	}
+	PrintList(plist2);   // 2  3  4  5  6
+	UnionSet(plist1, plist2);
+}
+
+void TestComplexCopyList()
+{
+	ComplexNode* plist = NULL;
+	ComplexNode* newlist = NULL;
+
+	ComplexNode* p1 = BuyComplexNode(5);
+	ComplexNode* p2 = BuyComplexNode(4);
+	ComplexNode* p3 = BuyComplexNode(3);
+	ComplexNode* p4 = BuyComplexNode(2);
+	ComplexNode* p5 = BuyComplexNode(1);
+	plist = p1;
+	p1->next = p2;
+	p2->next = p3;
+	p3->next = p4;
+	p4->next = p5;
+	
+	p1->random = p3;
+	p2->random = p1;
+	p3->random = NULL;
+	p4->random = p2;
+	p5->random = p4;
+
+	PrintComplexList(plist);
+	newlist = CopyComplexList(plist);
+	PrintComplexList(newlist);
+
+}
+
 int main()
 {
 	//TestPushBack();
@@ -388,9 +480,11 @@ int main()
 	//TestMerge();
 	//TestFindMidNode();
 	//TestFindLastKNode();
-	//TestCiecle();
-	TestCheckCross();
-
+	//TestCircle();
+	//TestCheckCross();
+	//TestCheckCrossWithCircle();
+	//TestUnionSet();
+	TestComplexCopyList();
 
 	system("pause");
 	return 0;
