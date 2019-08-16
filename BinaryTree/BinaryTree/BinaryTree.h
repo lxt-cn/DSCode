@@ -15,6 +15,7 @@ typedef struct BinaryTreeNode
 
 // a 是一个前序遍历的数组
 BTNode* BinaryTreeCreate(BTDataType* a, int n, int* pi);
+<<<<<<< HEAD
 void BinaryTreeDestory(BTNode** pptree);
 
 int BinaryTreeHeight(BTNode* root);
@@ -23,12 +24,21 @@ int BinaryTreeLeafSize(BTNode* root);
 int BinaryTreeLevelKSize(BTNode* root, int k);
 BTNode* BinaryTreeFind(BTNode* root, BTDataType d);
 
+=======
+
+int BinaryTreeSize(BTNode* root);
+int BinaryTreeLeafSize(BTNode* root);
+int BinaryTreeLevelKSize(BTNode* root, int k);
+>>>>>>> 9fb4243855014088c2a5653ff72f86e2ded87323
 
 // 遍历 
 // 递归
 void BinaryTreePrevOrder(BTNode* root);
 void BinaryTreeInOrder(BTNode* root);
 void BinaryTreePostOrder(BTNode* root);
+<<<<<<< HEAD
 
 // 层序
 void BinaryTreeLevelOrder(BTNode* root);
+=======
+>>>>>>> 9fb4243855014088c2a5653ff72f86e2ded87323

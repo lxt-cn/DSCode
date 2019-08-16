@@ -1,5 +1,8 @@
 #include "BinaryTree.h"
+<<<<<<< HEAD
 #include "Queue.h"
+=======
+>>>>>>> 9fb4243855014088c2a5653ff72f86e2ded87323
 
 static BTNode* BuyBTNode(BTDataType d)
 {
@@ -30,6 +33,7 @@ BTNode* BinaryTreeCreate(BTDataType* a, int n, int* pi)
 	}
 }
 
+<<<<<<< HEAD
 void BinaryTreeDestory(BTNode** pptree)
 {
 	BTNode* root = *pptree;
@@ -55,6 +59,8 @@ int BinaryTreeHeight(BTNode* root)
 	return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
 }
 
+=======
+>>>>>>> 9fb4243855014088c2a5653ff72f86e2ded87323
 int BinaryTreeSize(BTNode* root)
 {
 	if (root == NULL)
@@ -88,6 +94,7 @@ int BinaryTreeLevelKSize(BTNode* root, int k)
 	return BinaryTreeLevelKSize(root->_left, k - 1) + BinaryTreeLevelKSize(root->_right, k - 1);
 }
 
+<<<<<<< HEAD
 BTNode* BinaryTreeFind(BTNode* root, BTDataType d)
 {
 	BTNode* ret = NULL;
@@ -101,6 +108,8 @@ BTNode* BinaryTreeFind(BTNode* root, BTDataType d)
 
 }
 
+=======
+>>>>>>> 9fb4243855014088c2a5653ff72f86e2ded87323
 // ±éÀú 
 // µÝ¹é
 void BinaryTreePrevOrder(BTNode* root)
@@ -135,6 +144,7 @@ void BinaryTreePostOrder(BTNode* root)
 	BinaryTreePostOrder(root->_right);
 	printf("%c ", root->_data);
 }
+<<<<<<< HEAD
 
 void BinaryTreeLevelOrder(BTNode* root)
 {
@@ -161,3 +171,5 @@ void BinaryTreeLevelOrder(BTNode* root)
 	}
 	printf("\n");
 }
+=======
+>>>>>>> 9fb4243855014088c2a5653ff72f86e2ded87323
